@@ -12,11 +12,45 @@ define('app',['exports', 'aurelia-router'], function (exports, _aureliaRouter) {
     }
   }
 
-  var App = exports.App = function App() {
-    _classCallCheck(this, App);
+  var App = exports.App = function () {
+    function App() {
+      _classCallCheck(this, App);
+    }
 
-    this.message = 'Hello World!';
-  };
+    App.prototype.configureRouter = function configureRouter(config) {
+      config.title = 'Aurelia';
+      config.addPipelineStep('authorize', AuthorizeStep);
+      config.map([{ route: ['welcome'], name: 'welcome', moduleId: 'welcome', nav: true, title: 'Welcome' }, { route: 'flickr', name: 'flickr', moduleId: 'flickr', nav: true, auth: true }, { route: 'child-router', name: 'childRouter', moduleId: 'child-router', nav: true, title: 'Child Router' }, { route: 'login', name: 'login', moduleId: 'model/login/index', layoutView: 'views/login/login.html' }, { route: '', redirect: 'welcome' }]);
+    };
+
+    return App;
+  }();
+
+  var AuthorizeStep = function () {
+    function AuthorizeStep() {
+      _classCallCheck(this, AuthorizeStep);
+    }
+
+    AuthorizeStep.prototype.run = function run(navigationInstruction, next) {
+      if (navigationInstruction.getAllInstructions().some(function (i) {
+        return i.config.auth;
+      })) {
+        var isLoggedIn = AuthorizeStep.isLogin();
+        if (!isLoggedIn) {
+          return next.cancel(new _aureliaRouter.Redirect('login'));
+        }
+      }
+
+      return next();
+    };
+
+    AuthorizeStep.isLoggedIn = function isLoggedIn() {
+      var auth_token = localStorage.getItem("auth_token");
+      return typeof auth_token !== "undefined" && auth_token !== null;
+    };
+
+    return AuthorizeStep;
+  }();
 });
 define('environment',["exports"], function (exports) {
   "use strict";
@@ -76,5 +110,8 @@ define('resources/index',["exports"], function (exports) {
   exports.configure = configure;
   function configure(config) {}
 });
-define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <h1>${message}</h1>\n</template>\n"; });
+define('model/login/login',[], function () {});
+define('model/login/index',[], function () {});
+define('text!app.html', ['module'], function(module) { module.exports = "<template>\n  <router-view></router-view>\n</template>\n"; });
+define('text!views/login/login.html', ['module'], function(module) { module.exports = "Login page"; });
 //# sourceMappingURL=app-bundle.js.map
