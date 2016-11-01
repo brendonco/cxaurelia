@@ -24,14 +24,14 @@
     "source": "src/**/*.html"
   },
   "cssProcessor": {
-    "id": "none",
-    "displayName": "None",
-    "fileExtension": ".css",
-    "source": "src/**/*.css"
+    "id": "sass",
+    "displayName": "Sass",
+    "fileExtension": ".scss",
+    "source": "src/**/*.scss"
   },
   "editor": {
-    "id": "vscode",
-    "displayName": "Visual Studio Code"
+    "id": "sublime",
+    "displayName": "Sublime"
   },
   "unitTestRunner": {
     "id": "karma",
@@ -110,6 +110,7 @@
           "aurelia-polyfills",
           "aurelia-route-recognizer",
           "aurelia-router",
+          "aurelia-http-client",
           "aurelia-task-queue",
           "aurelia-templating",
           "aurelia-templating-binding",
@@ -132,6 +133,17 @@
             "path": "../node_modules/aurelia-testing/dist/amd",
             "main": "aurelia-testing",
             "env": "dev"
+          },
+          "jquery",
+          {
+            "name": "bootstrap",
+            "path": "../node_modules/bootstrap/dist",
+            "main": "js/bootstrap.min",
+            "deps": ["jquery"],
+            "exports": "$",
+            "resources": [
+              "css/bootstrap.css"
+            ]
           }
         ]
       }
