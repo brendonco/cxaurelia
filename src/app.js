@@ -8,23 +8,18 @@ export class App {
     this.auth = AuthService;
   }
   configureRouter(config, router) {
-    config.addAuthorizeStep(AuthorizeStep);
+    this.router = router;
+
+    config.title = 'CXA';
+    // remove hash from URL
+    // config.options.pushState = true;
+    // custom base tag
+    // config.options.root = '/';
+    // config.addAuthorizeStep(AuthorizeStep);
     config.map([
-      { route: ['', 'login'],       name: 'login',       moduleId: 'login/login' },
-      { route: 'dashboard',            name: 'dashboard',      moduleId: 'dashboard/dashboard', settings: { auth: true } }
+      { route: ['', 'login'], name: 'login',     moduleId: 'login/login', nav: false,  title: 'Login', settings: {auth: true}}
     ]);
-  }
-}
 
-class AuthorizeStep {
-  run(navigationInstruction, next) {
-    if (navigationInstruction.getAllInstructions().some(i => i.config.settings.auth)) {
-      var isLoggedIn = AuthorizeStep.isAuthenticated();// insert magic here;
-      if (!isLoggedIn) {
-        return next.cancel(new Redirect('login'));
-      }
-    }
-
-    return next();
+    config.mapUnknownRoutes('login/login');
   }
 }

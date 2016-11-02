@@ -1,3 +1,5 @@
+import {$} from 'jquery';
+import AuthService from './login/AuthService';
 import environment from './environment';
 
 //Configure Bluebird Promises.
@@ -21,5 +23,11 @@ export function configure(aurelia) {
     aurelia.use.plugin('aurelia-testing');
   }
 
-  aurelia.start().then(() => aurelia.setRoot());
+  aurelia.start().then(() => {
+    var auth = aurelia.container.get(AuthService);
+
+    let root = auth.isAuthenticated() ? 'app' : 'login/login';
+
+    aurelia.setRoot(root);
+  });
 }

@@ -1,5 +1,5 @@
-import 'bootstrap';
 import AuthService from '../../login/AuthService';
+import { inject } from 'aurelia-framework';
 
 @inject(AuthService)
 export class Dashboard {

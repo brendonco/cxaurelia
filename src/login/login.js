@@ -10,7 +10,9 @@ export class Login {
     // we can call it within another method on our view model.
     this.login = () => {
       if (this.username && this.password) {
-        AuthService.login(this.username, this.password)
+        AuthService.login(this.username, this.password, err => {
+          this.error = err;
+        });
       } else {
         this.error = 'Please enter a username and password.';
       }

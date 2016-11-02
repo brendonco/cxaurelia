@@ -53,7 +53,7 @@ let run;
 
 if (CLIOptions.hasFlag('watch')) {
   run = gulp.series(
-    serve,
+    // serve,
     watch
   );
 } else {
