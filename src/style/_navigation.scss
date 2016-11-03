@@ -1,0 +1,16 @@
+$menu-bg-color: #e7e7e7;
+
+.secondary-navigation{
+    &:active{
+        color: #FFF;
+    }
+
+    ul {
+        color: #333;
+        background-color: $menu-bg-color;
+    }
+
+    nav {
+        display:flex;
+    }
+}

@@ -1,4 +1,3 @@
-import {$} from 'jquery';
 import AuthService from './login/AuthService';
 import environment from './environment';
 

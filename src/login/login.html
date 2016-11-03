@@ -3,11 +3,14 @@
     <form class="login-form" submit.delegate="login()">
         <div class="panel panel-default">
             <div class="panel-body">
-            <input class="form-control" type="text" placeholder="username" value.bind="username" />
-            <input class="form-control" type="password" placeholder="password" value.bind="password" />
-            <button class="btn btn-default pull-right" type="submit">Login</button>
+                <input class="form-control" type="text" placeholder="username" value.bind="username" />
+                <input class="form-control" type="password" placeholder="password" value.bind="password" />
+                <button class="btn btn-default pull-right" type="submit">Login</button>
             </div>
         </div>
-  </form>
-  <div class="text-danger">${error.stackTrace}</div>
+    </form>
+    <div class="text-danger" if.bind="error">
+        <p>Error Code: ${error.code}</p>
+        <p>Error: ${error.message}</p>
+    </div>
 </template>

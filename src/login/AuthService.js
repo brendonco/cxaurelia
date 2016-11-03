@@ -44,7 +44,7 @@ export default class AuthService {
                     var defaultPage = session.clientConfig.defaultLandingPage;
                     var path = defaultPage + '/' + defaultPage;
 
-                    this.app.setRoot('./employee/' + path);
+                    this.app.setRoot('./employee/employee');
                 }else if(session.session.portal === 'broker'){
                 }else{
                     // .. and set root to app.
@@ -54,21 +54,20 @@ export default class AuthService {
                 
             }).catch(err => {
                 if(errorCallback){
-                    errorCallback({
-                        stackTrace: err.response,
-                        status: err.statusCode,
-                        statusText: err.statusText
-                    });
+                    try{
+                        var response = JSON.parse(err.response);
+                        errorCallback({
+                            stackTrace: err.response,
+                            status: err.statusCode,
+                            statusText: err.statusText,
+                            message: response.message,
+                            code: response.code
+                        });
+                    }catch(err){
+                        console.log(err);
+                    }
                 }
             });
-    }
-
-    memberProfile(){
-        if(isAuthenticated()){
-            return 
-        }else{
-
-        }
     }
 
     logout() {

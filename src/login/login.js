@@ -14,7 +14,10 @@ export class Login {
           this.error = err;
         });
       } else {
-        this.error = 'Please enter a username and password.';
+        this.error = {
+          code: 'cxa-001',
+          message: 'Please enter a username and password.'
+        };
       }
     }
   }

@@ -15,27 +15,28 @@ function reload(done) {
 }
 
 let serve = gulp.series(
-  build,
-  done => {
-    browserSync({
-      online: false,
-      open: false,
-      port: 9000,
-      logLevel: 'silent',
-      server: {
-        baseDir: ['.'],
-        middleware: [historyApiFallback(), function(req, res, next) {
-          res.setHeader('Access-Control-Allow-Origin', '*');
-          next();
-        }]
-      }
-    }, function (err, bs) {
-      let urls = bs.options.get('urls').toJS();
-      console.log(`Application Available At: ${urls.local}`);
-      console.log(`BrowserSync Available At: ${urls.ui}`);
-      done();
-    });
-  }
+  build
+  // ,
+  // done => {
+  //   browserSync({
+  //     online: false,
+  //     open: false,
+  //     port: 9000,
+  //     logLevel: 'silent',
+  //     server: {
+  //       baseDir: ['.'],
+  //       middleware: [historyApiFallback(), function(req, res, next) {
+  //         res.setHeader('Access-Control-Allow-Origin', '*');
+  //         next();
+  //       }]
+  //     }
+  //   }, function (err, bs) {
+  //     let urls = bs.options.get('urls').toJS();
+  //     console.log(`Application Available At: ${urls.local}`);
+  //     console.log(`BrowserSync Available At: ${urls.ui}`);
+  //     done();
+  //   });
+  // }
 );
 
 let refresh = gulp.series(
@@ -53,7 +54,7 @@ let run;
 
 if (CLIOptions.hasFlag('watch')) {
   run = gulp.series(
-    // serve,
+    serve,
     watch
   );
 } else {

@@ -27,7 +27,8 @@
     "id": "sass",
     "displayName": "Sass",
     "fileExtension": ".scss",
-    "source": "src/**/*.scss"
+    "source": "src/**/*.scss",
+    "output": "style"
   },
   "editor": {
     "id": "sublime",
@@ -134,13 +135,17 @@
             "main": "aurelia-testing",
             "env": "dev"
           },
-          "jquery",
+          {
+            "name":"jquery",
+            "path":"../node_modules/jquery/dist",
+            "main":"jquery.min",
+            "export": "$"
+          },
           {
             "name": "bootstrap",
             "path": "../node_modules/bootstrap/dist",
             "main": "js/bootstrap.min",
             "deps": ["jquery"],
-            "exports": "$",
             "resources": [
               "css/bootstrap.css"
             ]
