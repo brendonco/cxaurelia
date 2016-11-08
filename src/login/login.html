@@ -1,5 +1,7 @@
 <template>
+    <require from="resources/spinner.html"></require>
     <require from="bootstrap/css/bootstrap.css"></require>
+
     <form class="login-form" submit.delegate="login()">
         <div class="panel panel-default">
             <div class="panel-body">
@@ -13,4 +15,8 @@
         <p>Error Code: ${error.code}</p>
         <p>Error: ${error.message}</p>
     </div>
+    <div>
+        <spinner show.bind="router"></spinner>
+    </div>
+
 </template>

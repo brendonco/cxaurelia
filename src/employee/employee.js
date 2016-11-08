@@ -43,6 +43,7 @@ import { inject } from 'aurelia-framework';
 export class Dashboard {
   constructor(AuthService) {
     this.auth = AuthService;
+    this.profile = this.auth.getEmployeeProfile();
   }
 
   configureRouter(config, router) {

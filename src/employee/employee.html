@@ -1,5 +1,6 @@
 <template>
-    <require from="employee/components/navigation.html"></require>
+    <require from="resources/navigation.html"></require>
+    <require from="resources/spinner.html"></require>
     <div class="container">
         <!-- Static navbar -->
         <nav class="navbar navbar-default">
@@ -16,6 +17,7 @@
                 <div id="navbar" class="navbar-collapse collapse">
                     <navigation router.bind="router"></navigation>
                     <ul class="nav navbar-nav navbar-right">
+                        <li class="align-vmiddle">Welcome ${profile.fullName}</li>
                         <!-- We can call the logout() method directly on the object. -->
                         <li><a href="#" click.delegate="auth.logout()">Log Out</a></li>
                     </ul>

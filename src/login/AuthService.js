@@ -14,15 +14,36 @@ export default class AuthService {
         HttpClient.configure(http => {
             http.withHeader('Content-Type', 'application/json');
             http.withBaseUrl(config.baseUrl);
+            http.withInterceptor({
+              request(message) {
+                this.isHTTPRequest = true;
+                return message;
+              },
+
+              requestError(error) {
+                this.isHTTPRequest = false;
+                throw error;
+              },
+
+              response(message) {
+                this.isHTTPRequest = false;
+                return message;
+              },
+
+              responseError(error) {
+                this.isHTTPRequest = false;
+                throw error;
+              }
+            });
         });
 
+        this.isHTTPRequest = false;
         this.http = HttpClient;
         this.app = Aurelia;
-
         this.session = JSON.parse(localStorage[config.tokenName] || null);
     }
 
-    login(username, password, errorCallback) {
+    login(username, password, successCallback, errorCallback) {
         var data = {
             username: username,
             password: password,
@@ -48,10 +69,10 @@ export default class AuthService {
                 }else if(session.session.portal === 'broker'){
                 }else{
                     // .. and set root to app.
-                    this.app.setRoot('./app');
+                    this.app.setRoot('app');
                 }
 
-                
+                successCallback(session);
             }).catch(err => {
                 if(errorCallback){
                     try{
@@ -64,7 +85,7 @@ export default class AuthService {
                             code: response.code
                         });
                     }catch(err){
-                        console.log(err);
+                        throw err;
                     }
                 }
             });
@@ -79,14 +100,22 @@ export default class AuthService {
         this.session = null;
 
         // .. and set root to login.
-        this.app.setRoot('./login/login')
+        // this.app.setRoot('./login/login');
+
+        this.app.setRoot('app');
     }
     
     isAuthenticated() {
         return this.session !== null;
     }
 
-    can(permission) {
-        return true;
+    isHTTPReq(){
+        return this.isHTTPRequest;
+    }
+
+    getEmployeeProfile(){
+        if(this.isAuthenticated()){
+            return this.session.session.employee;
+        }
     }
 }

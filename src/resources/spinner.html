@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>CXA Apollo POC</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--The FontAwesome version -->
-    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="style/main.css">
-  </head>
-
-  <body aurelia-app="main">
-    <div class="splash">
+<template bindable="spinner">
+    <!-- <div class="splash" show.bind="router.isNavigating"> -->
+    <div class="splash" show.bind="spinner.active">
         <div class="sk-circle">
           <div class="sk-circle1 sk-child"></div>
           <div class="sk-circle2 sk-child"></div>
@@ -25,6 +16,4 @@
           <div class="sk-circle12 sk-child"></div>
         </div>
     </div>
-    <script src="scripts/vendor-bundle.js" data-main="aurelia-bootstrapper"></script>
-  </body>
-</html>
+</template>

@@ -8,6 +8,13 @@ $menu-bg-color: #e7e7e7;
     ul {
         color: #333;
         background-color: $menu-bg-color;
+
+        >li {
+            .align-vmiddle{
+                padding-top:15px;
+                padding-bottom: 15px;
+            }
+        }
     }
 
     nav {
